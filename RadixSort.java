@@ -19,10 +19,8 @@ public class RadixSort {
 
     public static void radixSort(int[] array) {
         // Define 2D array as buckets for 10 digits
-        int[][] digitBuckets = new int[10][];
-        for (int i = 0; i < 10; i++) {
-            digitBuckets[i] = new int[array.length];
-        }
+        int[][] digitBuckets = new int[10][array.length];
+        
         // Define array for a count for each digit bucket
         int[] bucketCount = new int[10];
 
