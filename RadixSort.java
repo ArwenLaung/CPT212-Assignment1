@@ -97,17 +97,17 @@ public class RadixSort {
         maxRows = count[index]; // If the count in the digit bucket is higher than previous digit bucket count, then update the current digit bucket count as maxRows
       }
     }
-        // Print out each consecutive row after header with format
-        for (int row = 0; row < maxRows; row++) {
-            System.out.print("|              |");
-            for (int col = 0; col < 10; col++) {
-                if (row < count[col]) {
-                    System.out.printf(" %03d |", buckets[col][row]);
-                } else {
-                    System.out.print("     |");
-                }
+    // Print out each consecutive row after header with format
+    for (int row = 0; row < maxRows; row++) {
+        System.out.print("|              |");
+        for (int col = 0; col < 10; col++) {
+            if (row < count[col]) {
+                System.out.printf(" %03d |", buckets[col][row]);
+            } else {
+                System.out.print("     |");
             }
-            System.out.println();
         }
+        System.out.println();
+    }
     }
 }

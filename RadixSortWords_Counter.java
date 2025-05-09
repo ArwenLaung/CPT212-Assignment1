@@ -1,21 +1,26 @@
 import java.util.Arrays;
 
 public class RadixSortWords_Counter {
+  // Counters initialisation
   static int assignmentCount = 0;
   static int comparisonCount = 0;
   static int arithmeticCount = 0;
   static int arrayLookupCount = 0;
   static int methodCallCount = 0;
   static int returnCount = 0;
+
   public static void main(String[] args) {
-    String[] words = { "hello", "hell", "cat", "fly", "jump" };
+    // Predefined input
+    String[] words = { "hello", "hell", "cat", "fly", "jump", "cupcake", "cup", "cake" };
     assignmentCount++; // Assignment of predefined input to array words
 
     System.out.println("Example: " + Arrays.toString(words));
-
+    
+    // Sort the words by calling the predefined method
     radix_sort(words);
     methodCallCount++; // Call radix_sort() method
 
+    // Print out the final sorted array words
     System.out.print("Sorted Words: ");
     assignmentCount++; // Assignment of i = 0
     for (int i = 0; i < words.length; i++) {
@@ -29,7 +34,7 @@ public class RadixSortWords_Counter {
 
     System.out.print("\n");
 
-    // Print out the counters
+    // Print out the counts of each primitive operation
     System.out.println("-".repeat(80));
     System.out.println("Assignment Count = " + assignmentCount);
     System.out.println("Comparison Count = " + comparisonCount);
@@ -39,8 +44,10 @@ public class RadixSortWords_Counter {
   }
 
   public static void radix_sort(String[] arr) {
-    String[][] Array1 = new String [26][];
+    // Create two 2D arrays
+    String[][] Array1 = new String [26][]; // Outer array
     assignmentCount += 2; // Assignment of the outer array and initial assignment of i = 0
+    // Inner array
     for (int i = 0; i < 26; i++) {
         Array1[i] = new String[arr.length];
         assignmentCount++; // Assignment of each row of 2D array Array1
@@ -57,12 +64,15 @@ public class RadixSortWords_Counter {
     }
     comparisonCount++; // Last comparison of i < 26, cannot enter the loop
 
+    // Create two arrays for each alphabet bucket in each 2D array to track number of counts in each bucket
     int[] count1 = new int [26];
     int[] count2 = new int [26];
     assignmentCount += 2; // Initiallise all elements of the array count1 and array count2
 
+    // Print out initialisation buckets
     System.out.println("\n1. Initialisation:");
     System.out.println("Array 1:");
+    // Print the buckets in format by calling predefined method
     printBuckets(Array1, count1, "Array 1");
     System.out.println("Array 2:");
     printBuckets(Array2, count2, "Array2");
@@ -80,12 +90,15 @@ public class RadixSortWords_Counter {
     }
     comparisonCount++; // Last comparison of i < arr.length, cannot enter the loop
 
+    // Print the maximum length of word
     System.out.println("Maximum Length of Word: "+ maxLength);
     System.out.println("-".repeat(100) + "\n");
 
+    // Print the iterations
     System.out.println("2. Iteration: ");
 
     assignmentCount++; // Initialise pass = maxLength
+    // Start iterating from the LSF, right most alphabet of the word
     for (int pass = maxLength - 1; pass >= 0; pass-- ) {
       assignmentCount++; // Assignment of pass after decrement
       comparisonCount += 2; // Compares if pass >= 0 and if (maxLength - pass - 1) % 2 == 0
@@ -106,18 +119,8 @@ public class RadixSortWords_Counter {
         System.out.println("Iteration of character at position " + pass + ": ");
         printBuckets(Array1, count1, "Array1");
         methodCallCount++; // Call printBuckets()
-        System.out.print("Current Array 1 List: ");
-        assignmentCount++; // Initialise i = 0
-        for (int i = 0; i < arr.length; i++) {
-          assignmentCount++; // Assignment of i after increment
-          comparisonCount++; // Compares if i < arr.length
-          System.out.print(arr[i] + " ");
-          arrayLookupCount++; // Access array arr[i]
-          arithmeticCount++; // Increment of i
-        }
-        comparisonCount++; // Last comparison of i, cannot enter the loop
-        System.out.println("\n");
 
+        // Collect elements from buckets back into array
         int index = 0;
         assignmentCount += 2; // Assignment of index and initialise i = 0
         for (int i = 0; i < 26; i++) {
@@ -135,8 +138,22 @@ public class RadixSortWords_Counter {
           arithmeticCount++; // Increment of j
         }
         arithmeticCount++; // Increment of i
+
+        // Print the updated array after collecting from alphabet buckets
+        System.out.print("Current Array 1 List: ");
+        assignmentCount++; // Initialise i = 0
+        for (int i = 0; i < arr.length; i++) {
+          assignmentCount++; // Assignment of i after increment
+          comparisonCount++; // Compares if i < arr.length
+          System.out.print(arr[i] + " ");
+          arrayLookupCount++; // Access array arr[i]
+          arithmeticCount++; // Increment of i
+        }
+        comparisonCount++; // Last comparison of i, cannot enter the loop
+        System.out.println("\n");
       }
       else {
+        // Distribute elements to alphabet buckets
         assignmentCount++; // Initialise i = 0
         for (int i = 0; i < arr.length; i++) {
           assignmentCount += 3; // Assignment of i after increment, letterBucket and Array2[letterBucket][count2[letterBucket]++]
@@ -152,17 +169,8 @@ public class RadixSortWords_Counter {
         System.out.println("Iteration at character at position " + pass +": ");
         printBuckets(Array2, count2, "Array2");
         methodCallCount++; // Call printBuckets()
-        System.out.print("Current Array 2 List: ");
-        assignmentCount++; // Initialise i = 0
-        for (int i = 0; i < arr.length; i++) {
-          assignmentCount++; // Assignment of i after increment
-          System.out.print(arr[i] + " ");
-          arrayLookupCount++; // Access array arr[i]
-          arithmeticCount++; // Increment of i
-        }
-        comparisonCount++; // Last comparison of i < arr.length, cannot enter the loop
-        System.out.println("\n");
 
+        // Collect elements from buckets back into array
         int index = 0;
         assignmentCount += 2; // Assignment of index and initialise i = 0
         for (int i = 0; i < 26; i++) {
@@ -180,6 +188,17 @@ public class RadixSortWords_Counter {
           comparisonCount++; // Last comaprison of j < count2[i], cannot enter the loop
         }
         comparisonCount++; // Last comparison of i < 26, cannot enter the loop
+
+        System.out.print("Current Array 2 List: ");
+        assignmentCount++; // Initialise i = 0
+        for (int i = 0; i < arr.length; i++) {
+          assignmentCount++; // Assignment of i after increment
+          System.out.print(arr[i] + " ");
+          arrayLookupCount++; // Access array arr[i]
+          arithmeticCount++; // Increment of i
+        }
+        comparisonCount++; // Last comparison of i < arr.length, cannot enter the loop
+        System.out.println("\n");
       }
       System.out.println("-".repeat(100) + "\n");
       arithmeticCount++; // Decrement of pass
@@ -187,6 +206,8 @@ public class RadixSortWords_Counter {
     comparisonCount++; // Last comparison of pass, cannot enter the loop
   }
 
+  // Get the position of the letter in the alphabet (a = 0, b = 1, ..., z = 25)
+  // Pads short words by treating missing characters as 'a' (index 0)
   public static int getCharIndex(String word, int position) {
     comparisonCount++; // Comparison of position < word.length()
     if (position < word.length()) {
@@ -200,6 +221,7 @@ public class RadixSortWords_Counter {
     }
   }
 
+  // Helper function to print the alphabet buckets in format, print array contents vertically (one bucket per line)
   private static void printBuckets(String[][] array, int[] count, String arrayName) {
     System.out.println("\n---" + arrayName + " Alphabet Buckets ---");
 
