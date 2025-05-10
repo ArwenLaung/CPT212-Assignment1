@@ -4,11 +4,11 @@ import java.util.Random;
 
 public class RadixSort_Analysis {
     // Counter for primitive operations
-    private static long operationCount = 0;
+    private static int operationCount = 0;
 
     public static void main(String[] args) throws IOException {
         // Create an array that contains sizes of input
-        int[] inputSizes = {100, 1000, 10000, 100000, 1000000, 10000000};
+        int[] inputSizes = {100, 500, 1000, 5000, 10000, 15000};
 
         // Run multiple trials for each size of input to get average
         int numberTrials = 10; 
@@ -18,17 +18,20 @@ public class RadixSort_Analysis {
         csvResults.append("Array Size,Operations,Operations/InputSize,Operations/(MaxDigit*InputSize)\n"); // First row of the CSV file
 
         // Print table header to display in the terminal
+        System.out.println("-".repeat(98));
         System.out.printf("| %-10s | %-18s | %-21s | %-32s |\n", "Input Size", "Average Operations", "Operations/Input Size", "Operations/(Input Size * Max Digits)");
+        System.out.println("|" + "-".repeat(12) + "|" + "-".repeat(20) + "|" + "-".repeat(23) + "|" + "-".repeat(38) + "|");
+
         
         // For each size of input in array inputSizes...
         for (int i = 0; i < inputSizes.length; i++) {
-            long totalOperations = 0;
+            int totalOperations = 0;
             int totalDigits = 0;
             
-            // Perform 5 times of sorting trials on this size of input
+            // Perform 10 times of sorting trials on this size of input
             for (int trial = 0; trial < numberTrials; trial++) {
                 // Generate random array of this size, with the inputs ranging from 1 to 999999
-                int[] array = generateRandomArray(inputSizes[i], 1, 999999); // Generate numbers up to 6 digits
+                int[] array = generateRandomArray(inputSizes[i], 1, 99999999); // Generate numbers up to 6 digits
                 
                 // Find maximum value in this array
                 int max = array[0];
@@ -57,7 +60,7 @@ public class RadixSort_Analysis {
             }
             
             // Calculate averages of operations and digits
-            long averageOperations = totalOperations / numberTrials;
+            int averageOperations = totalOperations / numberTrials;
             double averageDigits = (double) totalDigits / numberTrials;
             
             // Write results to CSV file
@@ -73,6 +76,7 @@ public class RadixSort_Analysis {
             (double) (averageOperations / (inputSizes[i] * averageDigits)));
         }
 
+        System.out.println("-".repeat(98));
         System.out.println("");
         
         // Force any unsaved data to be written immediately to the file

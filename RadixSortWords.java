@@ -9,7 +9,7 @@ public class RadixSortWords {
     System.out.println("Example: " + Arrays.toString(words));
 
     // Sort the words by calling the predefined method
-    radix_sort(words);
+    radixSortWords(words);
 
     // Print out the final sorted array words
     System.out.print("Sorted Words: ");
@@ -18,7 +18,7 @@ public class RadixSortWords {
     }
   }
 
-  public static void radix_sort(String[] arr) {
+  public static void radixSortWords(String[] arr) {
     // Create two 2D arrays
     String[][] Array1 = new String [26][]; // Outer array
     // Inner array
