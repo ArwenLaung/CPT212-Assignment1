@@ -31,7 +31,7 @@ public class RadixSort_Analysis {
             // Perform 10 times of sorting trials on this size of input
             for (int trial = 0; trial < numberTrials; trial++) {
                 // Generate random array of this size, with the inputs ranging from 1 to 999999
-                int[] array = generateRandomArray(inputSizes[i], 1, 99999999); // Generate numbers up to 6 digits
+                int[] array = generateRandomArray(inputSizes[i], 1, 99999999); // Generate numbers up to 8 digits
                 
                 // Find maximum value in this array
                 int max = array[0];

@@ -80,32 +80,48 @@ public class RadixSort {
 
     // Helper function to print the buckets
     public static void printBuckets(int[][] buckets, int[] count) {
+        int maxNumber = 0;
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < count[i]; j++) {
+                if (buckets[i][j] > maxNumber) {
+                    maxNumber = buckets[i][j];
+                }
+            }
+        }
+
+        // Determine digit width
+        int digitWidth = String.valueOf(maxNumber).length();
+        String format = " %" + digitWidth + "d |";
+
         // Print out the header row
         System.out.print("| Digit Bucket |");
         for (int i = 0; i < 10; i++) {
-            System.out.printf("  %d  |", i);
+            System.out.printf("%" + digitWidth + "s  |", i);
         }
         System.out.println();
 
-    // Find maximum number of rows to print
-    int maxRows = 0; // Initialise maxRows to 0
-    // Iterate through each element in count of each digit bucket to find the bucket with the highest number of count
-    for (int index = 0; index < count.length; index++) {
-      if (count[index] > maxRows) {
-        maxRows = count[index]; // If the count in the digit bucket is higher than previous digit bucket count, then update the current digit bucket count as maxRows
-      }
-    }
-    // Print out each consecutive row after header with format
-    for (int row = 0; row < maxRows; row++) {
-        System.out.print("|              |");
-        for (int col = 0; col < 10; col++) {
-            if (row < count[col]) {
-                System.out.printf(" %03d |", buckets[col][row]);
-            } else {
-                System.out.print("     |");
+
+        // Find maximum number of rows to print
+        int maxRows = 0; // Initialise maxRows to 0
+        // Iterate through each element in count of each digit bucket to find the bucket with the highest number of count
+        for (int index = 0; index < count.length; index++) {
+            if (count[index] > maxRows) {
+                maxRows = count[index]; // If the count in the digit bucket is higher than previous digit bucket count, then update the current digit bucket count as maxRows
             }
         }
-        System.out.println();
-    }
+
+
+        // Print out each consecutive row after header with format
+        for (int row = 0; row < maxRows; row++) {
+            System.out.print("|              |");
+            for (int col = 0; col < 10; col++) {
+                if (row < count[col]) {
+                    System.out.printf(format, buckets[col][row]);
+                } else {
+                    System.out.printf(" %" + digitWidth + "s |", "");
+                }
+            }
+            System.out.println();
+        }
     }
 }
